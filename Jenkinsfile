@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        checkout scm
+                        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubtoken', url: 'https://github.com/ThabtiZahra/Docker-Project.git']])
                     } catch (Exception e) {
                         echo "Error checking out code: ${e.message}"
                         currentBuild.result = 'FAILURE'
@@ -39,4 +39,3 @@ pipeline {
         }
     }
 }
-
