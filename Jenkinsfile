@@ -5,15 +5,27 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    checkout scmGit(branches:[[name:'*/main']], extensions:[], userRemoteConfigs:[[url:'https://github.com/ThabtiZahra/Docker-Project.git']])
+                    try {
+                        checkout scm
+                    } catch (Exception e) {
+                        echo "Error checking out code: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error("Failed to checkout code")
+                    }
                 }
             }
-        
+        }
 
         stage('Deploy Services') {
             steps {
                 script {
-                    sh "docker-compose up -d"
+                    try {
+                        sh "docker-compose up -d"
+                    } catch (Exception e) {
+                        echo "Error deploying services: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error("Failed to deploy services")
+                    }
                 }
             }
         }
@@ -27,3 +39,4 @@ pipeline {
         }
     }
 }
+
