@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Music classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #16a085;
+            text-align: center;
+        }
+        .upload-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 300px;
+            border: 2px dashed #ccc;
+            cursor: pointer;
+        }
+        .upload-area input[type="file"] {
+            display: none;
+        }
+        .upload-area label {
+            display: block;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            background-color: #16a085;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .upload-area p {
+            margin: 0;
+            text-align: center;
+            color: #888;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .form-row select {
+            width: 100%;
+            padding: 8px 12px;
+            margin: 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #16a085;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #149174;
+        }
+    </style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('form input').change(function () {
+            $('form p').text(this.files.length + " file(s) selected");
+        });
+    });
+</script>
+</head>
+<body>
+ <div class="container">
+     <h1>Music Classifier</h1>
+     <form method="POST" action="/classify" enctype="multipart/form-data">
+         <div class="upload-area">
+             <input type="file" name="file">
+             <label for="file">Choose a file</label>
+             <p> select a file !!!</p>
+         </div>
+         <div class="form-row">
+             <label for="model_selected"> model :</label>
+             <select name="model_selected" id="model-select" >
+                 <option value="none"> option--</option>
+                 <option value="svm">SVM model</option>
+                 <option value="vgg">Vgg-19 model</option>
+             </select>
+         </div>
+         <button type="submit" class="submit-btn">Upload</button>
+     </form>
+ </div>
+</body>
+</html>
+
